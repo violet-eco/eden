@@ -3,7 +3,7 @@ use std::io::Read;
 pub struct Eden;
 
 impl Eden {
-  pub fn b3sum(file: &mut std::fs::File) -> Result<blake3::Hash, Box<dyn std::error::Error>> {
+  pub fn b3sum(file: &mut std::fs::File) -> anyhow::Result<blake3::Hash> {
     let mut hasher = blake3::Hasher::new();
 
     let mut buf: [u8; 4096] = [0; 4096];
@@ -27,13 +27,14 @@ mod tests {
   use std::str::FromStr;
 
   #[test]
-  fn it_works() {
-    let mut file = std::fs::File::open("Cargo.toml").expect("Err");
-    let hash = Eden::b3sum(&mut file).expect("Err");
+  fn it_works() -> anyhow::Result<()> {
+    let mut file = std::fs::File::open(".gitignore")?;
+    let hash = Eden::b3sum(&mut file)?;
     assert_eq!(
       hash,
-      blake3::Hash::from_str("d5300d9f6cb008b5695f9f36f1f3e1f50d0dc95f75df4fd57b50a8df53fb01eb")
-        .expect("Err")
+      blake3::Hash::from_str("91ae008eb0f251d17211c155019e6aeed915ff03ca84cc4aca55f965b9d458ec")?
     );
+
+    Ok(())
   }
 }
