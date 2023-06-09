@@ -1,6 +1,9 @@
-use std::io::Read;
 pub struct Eden;
 
+#[cfg(all(feature = "blake3"))]
+use std::io::Read;
+
+#[cfg(feature = "blake3")]
 impl Eden {
     pub fn b3sum_with_size(
         file: &mut std::fs::File,

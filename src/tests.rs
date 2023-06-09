@@ -1,8 +1,9 @@
-use super::Eden;
-use std::str::FromStr;
-
+#[cfg(feature = "blake3")]
 #[test]
 fn it_works() -> anyhow::Result<()> {
+    use super::Eden;
+    use std::str::FromStr;
+
     let mut file = std::fs::File::open("manti.test")?;
     let hash = Eden::b3sum(&mut file)?;
     assert_eq!(

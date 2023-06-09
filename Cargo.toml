@@ -5,4 +5,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.71"
-blake3 = "1.3.3"
+blake3 = { version = "1.3.3", optional = true }
+
+[features]
+blake3 = ["dep:blake3"]
