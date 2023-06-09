@@ -8,7 +8,8 @@ impl Eden {
     ) -> anyhow::Result<blake3::Hash> {
         let mut hasher = blake3::Hasher::new();
 
-        let mut buf: Vec<u8> = Vec::with_capacity(buf_size);
+        let mut buf: Vec<u8> = Vec::new();
+        buf.resize(buf_size, 0);
         loop {
             let n = file.read(&mut buf)?;
 
